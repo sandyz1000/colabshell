@@ -1,0 +1,38 @@
+#! /usr/bin/env python
+import sys
+import argparse
+from colabshell import ColabShell
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="ColabShell: Run Shell On Colab / Kaggle Notebooks"
+    )
+    parser._action_groups.pop()
+    required = parser.add_argument_group("required arguments")
+    optional = parser.add_argument_group("optional arguments")
+
+    required.add_argument(
+        "--port",
+        type=int,
+        help="the port you want to run ttyd server on",
+        required=True,
+    )
+    optional.add_argument(
+        "--credential",
+        type=str,
+        help="username and password to protect your shell from unauthorized access, format username:password",
+        default=None,
+    )
+    
+    optional.add_argument(
+        "--mount_drive",
+        action="store_true",
+        help="if you use --mount_drive, your google drive will be mounted",
+    )
+
+    args = parser.parse_args()
+    if args.credential and len(args.credential.split(":")) != 2:
+        print("Invalid credentail pair, should be in username:password format")
+        sys.exit(1)
+    username, password = args.credential.split(":")
+    ColabShell(port=args.port, username=username, password=password, mount_drive=args.mount_drive)
