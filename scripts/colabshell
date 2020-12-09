@@ -3,7 +3,8 @@ import sys
 import argparse
 from colabshell import ColabShell
 
-if __name__ == "__main__":
+
+def _main():
     parser = argparse.ArgumentParser(
         description="ColabShell: Run Shell On Colab / Kaggle Notebooks"
     )
@@ -34,5 +35,15 @@ if __name__ == "__main__":
     if args.credential and len(args.credential.split(":")) != 2:
         print("Invalid credentail pair, should be in username:password format")
         sys.exit(1)
-    username, password = args.credential.split(":")
-    ColabShell(port=args.port, username=username, password=password, mount_drive=args.mount_drive)
+    
+    try:
+        username, password = args.credential.split(":")
+        shell = ColabShell(port=args.port, username=username, password=password, mount_drive=args.mount_drive)
+        shell.run()
+    except KeyboardInterrupt:
+        print("Closing .....")
+        pass
+
+
+if __name__ == "__main__":
+    _main()
