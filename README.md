@@ -1,13 +1,13 @@
 # Access Shell on Colab / Kaggle Notebook server
 
-### WORK IN PROGRESS
-
 ## Installation
 
 Installation is easy!
 
 ```
-$ pip install colabshell
+$ git clone https://github.com/sandyz1000/colabshell.git
+$ cd colabshell
+$ pip install .
 ```
 
 Run ttyd server on Google Colab or Kaggle Notebooks
