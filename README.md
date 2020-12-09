@@ -5,9 +5,7 @@
 Installation is easy!
 
 ```
-$ git clone https://github.com/sandyz1000/colabshell.git
-$ cd colabshell
-$ pip install .
+$ pip install git+https://github.com/sandyz1000/colabshell.git
 ```
 
 Run ttyd server on Google Colab or Kaggle Notebooks
@@ -32,4 +30,12 @@ optional arguments:
   --mount_drive        if you use --mount_drive, your google drive will be mounted
 ```
 
-For more reference check the link: https://github.com/tsl0922/ttyd
+## Starting ttyd server from Notebook
+
+```
+from colabshell import ColabShell
+shell = ColabShell(port=10001, username='sandip', password='pass123@', mount_drive=True)
+shell.run()
+```
+
+For more info about the shell check this link: https://github.com/tsl0922/ttyd
