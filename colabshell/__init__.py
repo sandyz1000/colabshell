@@ -9,14 +9,14 @@ import socket
 import time
 import tempfile
 
-VERSION = "1.6.1"
+VERSION = "1.6.3"
 CDN_URL_PREFIX = f"https://github.com/tsl0922/ttyd/releases/download/{VERSION}/"
 
 PLATFORMS = {
-    "linux_x86_64_aarch64": CDN_URL_PREFIX + "ttyd_linux.aarch64",
-    "linux_x86_64_arm": CDN_URL_PREFIX + "ttyd_linux.arm",
-    "linux_i386": CDN_URL_PREFIX + "ttyd_linux.i386",
-    "linux_x86_64": CDN_URL_PREFIX + "ttyd_linux.x86_64"
+    "linux_x86_64_aarch64": CDN_URL_PREFIX + "ttyd.aarch64",
+    "linux_x86_64_arm": CDN_URL_PREFIX + "ttyd.arm",
+    "linux_i386": CDN_URL_PREFIX + "ttyd_linux.i686",
+    "linux_x86_64": CDN_URL_PREFIX + "ttyd.x86_64"
 }
 DEFAULT_DOWNLOAD_TIMEOUT = 6
 DEFAULT_RETRY_COUNT = 0
@@ -62,7 +62,7 @@ class ColabShell:
                     os.access(path + os.sep + 'ttyd', os.X_OK):
                 _TTYD_BINARY = path + os.sep + 'ttyd'
                 print(">>> ttyd binary already available >>> ")
-                return None
+                return
 
         arch = "x86_64" if sys.maxsize > 2 ** 32 else "i386"
         if platform.uname()[4].startswith("arm") or \
@@ -101,7 +101,7 @@ class ColabShell:
 
         try:
             self._print_progress("Downloading ttyd ...")
-            print("Download ttyd from {} ...".format(url))
+            print("Downloading ttyd from {} ...".format(url))
 
             local_filename = url.split("/")[-1]
             response = urlopen(url)
@@ -176,13 +176,12 @@ class ColabShell:
         else:
             _cmd = f"{_TTYD_BINARY} --port {self.port} /bin/bash"
 
-        with subprocess.Popen(
-            [_cmd],
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            bufsize=1,
-            universal_newlines=True,
-        ) as proc:
+        with subprocess.Popen([_cmd],
+                              shell=True,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE,
+                              bufsize=1,
+                              universal_newlines=True,
+                              ) as proc:
             for line in proc.stdout:
                 print(line, end="")

@@ -6,7 +6,7 @@ from colabshell import ColabShell
 
 def _main():
     parser = argparse.ArgumentParser(
-        description="ColabShell: Run Shell On Colab / Kaggle Notebooks"
+        description="ColabShell: Run Shell On Colab/Kaggle Notebooks"
     )
     parser._action_groups.pop()
     required = parser.add_argument_group("required arguments")
@@ -27,7 +27,7 @@ def _main():
     
     optional.add_argument(
         "--mount_drive",
-        action="store_true",
+        action="store_false",
         help="if you use --mount_drive, your google drive will be mounted",
     )
 
@@ -42,7 +42,6 @@ def _main():
         shell.run()
     except KeyboardInterrupt:
         print("Closing .....")
-        pass
 
 
 if __name__ == "__main__":

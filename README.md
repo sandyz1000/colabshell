@@ -34,7 +34,7 @@ optional arguments:
 
 ```
 from colabshell import ColabShell
-shell = ColabShell(port=10001, username='sandip', password='pass123@', mount_drive=True)
+shell = ColabShell(port=10001, username='colabshell', password='password', mount_drive=True)
 shell.run()
 ```
 

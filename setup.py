@@ -9,7 +9,7 @@ if __name__ == "__main__":
         name="colabshell",
         scripts=["scripts/colabshell"],
         version="0.1.0",
-        description="ColabShell - Run codeshell on Colab!",
+        description="ColabShell - Run shell on Colab/Kaggle notebook!",
         long_description=long_description,
         long_description_content_type="text/markdown",
         author="Sandip Dey",
